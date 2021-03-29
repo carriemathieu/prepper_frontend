@@ -1,4 +1,5 @@
 categories_url = "http://localhost:3000/api/categories"
+words_url = "http://localhost:3000/api/words"
 
 document.addEventListener('DOMContentLoaded', () => {
     getCategories()
