@@ -57,7 +57,17 @@ function postFetch(title, word_list, category_id) {
         })
     })
     .then(resp => resp.json())
-    .then(category => {
-        console.log(category)
+    .then(words => {
+        const wordData = words.data
+        const wordListMarkup = `
+        <div data-id=${wordData.id}>
+            <h3> ${wordData.attributes.title} </h3>
+            <p> ${wordData.attributes.word_list} </p>
+            <p> ${wordData.attributes.category.name} </p>
+            <button data-id=${wordData.id}>edit</button>
+        </div>
+        <br><br>`
+
+        document.querySelector("#words-container").insertAdjacentHTML("beforeend", wordListMarkup)
     })
 }
