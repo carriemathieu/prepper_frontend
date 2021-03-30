@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="category-container">
-        <form id="create-word-list" style="">
+        <form id="create-word-list-form">
             <h3> Create a Word List! </h3>
             <input id="input-title" type="text" name="title" value="" placeholder="List Title">
             <input id="input-word" type="text" name="word[0]" value="" placeholder="Word 1">
@@ -23,13 +23,19 @@
             <input id="input-word" type="text" name="word[8]" value="" placeholder="Word 9">
             <input id="input-word" type="text" name="word[9]" value="" placeholder="Word 10">
             <br><br>
-            Select a category or create a new one:
-            <!-- input dropdown of categories (datalist???)-->
+        
+            <select id="categories" name="categories">
+                <option value="">Please Select a Category:</option>
+                <option value="4">Ruby</option>
+                <option value="5">Rails</option>
+                <option value="6">Javascript</option>
+            </select>
             <br><br>
-            
+        <input id='create-button' type="submit" name="submit" value="Create List" class="submit">
         </form>
+
     </div>
-    <div id="words-container" style="">
+    <div id="words-container">
 
     </div>
 </body>

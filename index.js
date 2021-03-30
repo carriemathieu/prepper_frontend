@@ -2,6 +2,14 @@ categories_url = "http://localhost:3000/api/categories"
 words_url = "http://localhost:3000/api/words"
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("loaded")
+    const createWordListForm = document.querySelector("#create-word-list-form")
+
+    // on click
+    createWordListForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        createFormHandler(e)
+    })
     getCategories()
 })
 
@@ -14,10 +22,25 @@ function getCategories() {
             `<div data-id=${category.id}>
             <h3> ${category.attributes.name} </h3>`
 
-            document.querySelector('#category-container').innerHTML += categoryMarkup
-        }
-        )
-        
+            document.querySelector('#category-container').insertAdjacentHTML("beforeend", categoryMarkup) 
+        })
     }
     )
+}
+
+function createFormHandler(e) {
+    e.preventDefault()
+    const titleInput = document.querySelector("#input-title").value
+    const wordListInput = getWords()
+    const categoryInput = document.querySelector("#categories").value
+    const categoryId = parseInt(categoryInput)
+}
+
+function getWords() {
+    let words = document.querySelectorAll("#input-word")
+    let wordsinput = []
+    for (let i = 0; i < words.length; i++) {
+        wordsinput.push(words[i].value) 
+    }
+    return wordsinput 
 }
