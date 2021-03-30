@@ -34,6 +34,7 @@ function createFormHandler(e) {
     const wordListInput = getWords()
     const categoryInput = document.querySelector("#categories").value
     const categoryId = parseInt(categoryInput)
+    postFetch(titleInput, wordListInput, categoryId)
 }
 
 function getWords() {
@@ -43,4 +44,20 @@ function getWords() {
         wordsinput.push(words[i].value) 
     }
     return wordsinput 
+}
+
+function postFetch(title, word_list, category_id) {
+    fetch(words_url, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            title: title,
+            word_list: word_list,
+            category_id: category_id
+        })
+    })
+    .then(resp => resp.json())
+    .then(category => {
+        console.log(category)
+    })
 }
