@@ -2,10 +2,8 @@ categories_url = "http://localhost:3000/api/categories"
 words_url = "http://localhost:3000/api/words"
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("loaded")
     const createWordListForm = document.querySelector("#create-word-list-form")
 
-    // on click
     createWordListForm.addEventListener('submit', function(e) {
         e.preventDefault();
         createFormHandler(e)
@@ -14,15 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function getCategories() {
-    fetch(categories_url)
+    fetch(words_url)
     .then(resp => resp.json())
-    .then(categories => {
-        categories.data.forEach( category => {
-            const categoryMarkup = 
-            `<div data-id=${category.id}>
-            <h3> ${category.attributes.name} </h3>`
+    .then(words => {
+        words.data.forEach( word => {
+            let newWord = new Word(word, word.attributes)
 
-            document.querySelector('#category-container').insertAdjacentHTML("beforeend", categoryMarkup) 
+            document.querySelector('#words-container').insertAdjacentHTML("beforeend", newWord.renderWordCard())
         })
     })
     // .catch(err => console.log(err))
@@ -44,7 +40,7 @@ function getWords() {
         wordsinput.push(words[i].value) 
     }
     return wordsinput 
-}
+} 
 
 function postFetch(title, word_list, category_id) {
     fetch(words_url, {
@@ -58,21 +54,10 @@ function postFetch(title, word_list, category_id) {
     })
     .then(resp => resp.json())
     .then(words => {
-        console.log(words)
-        const wordData = words.data
-        render(wordData)
+        const word = words.data
+
+        let newWord = new Word(word, word.attributes)
+       
+        document.querySelector('#words-container').insertAdjacentHTML("beforeend", newWord.renderWordCard())
     })
-}
-
-function render(wordData) {
-    const wordListMarkup = `
-    <div data-id=${wordData.id}>
-        <h3> ${wordData.attributes.title} </h3>
-        <p> ${wordData.attributes.word_list} </p>
-        <p> ${wordData.attributes.category.name} </p>
-        <button data-id=${wordData.id}>edit</button>
-    </div>
-    <br><br>`
-
-    document.querySelector("#words-container").insertAdjacentHTML("beforeend", wordListMarkup)
 }
