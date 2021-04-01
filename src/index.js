@@ -24,20 +24,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // pulls category id/name & displays associated lists
     catDropDown.addEventListener("change", (e) => {
-        console.log(e)
+        // gets category ID from dropdown
+        document.querySelector("#wordListsSelection").className = "show"
+        document.querySelectorAll('#wordLists option').forEach(option => option.remove())
+        let cat_id = e.target.options.selectedIndex 
+        let select = document.querySelector("#wordLists")
+        allWords = Word.all
+        for (let i=0; i < allWords.length; i++) {
+            if (parseInt(allWords[i].category.id) == cat_id) {
+                let opt = document.createElement("option")
+                opt.innerHTML = allWords[i].title
+                select.appendChild(opt)
+            }
+        }
+        
+        // w = document.querySelector("#wordLists")
+        // w.className = "show"
+
+        // select -> for (let i=0; i<Word.all.length; i++) {i.title}
         // here we will display list of word_list titles depending on the category chosen
         // pull from db? or have each .hidden?
+        // use "this.value" to get titles?
     })
     
 })
+
 
 function getCategories() {
     fetch(words_url)
     .then(resp => resp.json())
     .then(words => {
+        // let select = document.querySelector("#categories")
         words.data.forEach( word => {
             let newWord = new Word(word, word.attributes)
-
+            // let opt = document.createElement("option")
+            // opt.innerHTML = newWord.renderCategories()
+            // select.appendChild(opt)
             document.querySelector('#words-container').insertAdjacentHTML("beforeend", newWord.renderWordCard())
         })
     })
@@ -48,7 +70,7 @@ function createFormHandler(e) {
     e.preventDefault()
     const titleInput = document.querySelector("#input-title").value
     const wordListInput = getWords()
-    const categoryInput = document.querySelector("#categories").value
+    const categoryInput = document.querySelector("#formCategories").value
     const categoryId = parseInt(categoryInput)
     postFetch(titleInput, wordListInput, categoryId)
 }
@@ -75,9 +97,12 @@ function postFetch(title, word_list, category_id) {
     .then(resp => resp.json())
     .then(words => {
         const word = words.data
-
         let newWord = new Word(word, word.attributes)
        
         document.querySelector('#words-container').insertAdjacentHTML("beforeend", newWord.renderWordCard())
+
+        window.alert("New list created!")
+
+        window.location.reload()
     })
 }

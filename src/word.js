@@ -7,14 +7,18 @@ class Word {
         Word.all.push(this)
     }
 
-    renderWordCard() {
+    renderCategories() {
         return `
-        <div data-id=${this.id}>
-            <h3> ${this.title} </h3>
-            <p> ${this.category.name} </p>
-        </div>
-        <br><br>`
+         ${this.category.name}`
     }
+
+    renderWordCard(){ 
+    return `
+    <div data-id=${this.id}>
+        <h3> ${this.title} </h3>
+        <p> ${this.category.name} </p>
+    </div>
+    <br><br>` }
 }
 
 Word.all = []
