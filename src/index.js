@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ready = document.querySelector("#ready")
     const newListButton = document.querySelector("#createList")
     const catContainer = document.querySelector("#category-container")
-    const catDropDown = document.querySelector("categories")
+    const catDropDown = document.querySelector("#categories")
 
     // gets info from backend db
     getCategories()
@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     // pulls category id/name & displays associated lists
+    catDropDown.addEventListener("change", (e) => {
+        console.log(e)
+        // here we will display list of word_list titles depending on the category chosen
+        // pull from db? or have each .hidden?
+    })
     
 })
 
