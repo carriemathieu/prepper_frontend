@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const newListButton = document.querySelector("#createList")
     const catContainer = document.querySelector("#category-container")
     const catDropDown = document.querySelector("#categories")
+    const wordListDropDown = document.querySelector("#wordLists")
 
     // gets info from backend db
     getCategories()
@@ -24,31 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // pulls category id/name & displays associated lists
     catDropDown.addEventListener("change", (e) => {
-        // gets category ID from dropdown
-        document.querySelector("#wordListsSelection").className = "show"
-        document.querySelectorAll('#wordLists option').forEach(option => option.remove())
-        let cat_id = e.target.options.selectedIndex 
-        let select = document.querySelector("#wordLists")
-        allWords = Word.all
-        for (let i=0; i < allWords.length; i++) {
-            if (parseInt(allWords[i].category.id) == cat_id) {
-                let opt = document.createElement("option")
-                opt.innerHTML = allWords[i].title
-                select.appendChild(opt)
-            }
-        }
-        
-        // w = document.querySelector("#wordLists")
-        // w.className = "show"
-
-        // select -> for (let i=0; i<Word.all.length; i++) {i.title}
-        // here we will display list of word_list titles depending on the category chosen
-        // pull from db? or have each .hidden?
-        // use "this.value" to get titles?
+        getWordListTitles(e)
     })
-    
-})
 
+    ready.addEventListener("click", (e) => {
+        chosenList = wordListDropDown.value
+        
+    })
+})
 
 function getCategories() {
     fetch(words_url)
@@ -75,15 +59,40 @@ function createFormHandler(e) {
     postFetch(titleInput, wordListInput, categoryId)
 }
 
+function getWordListTitles(e) {
+    document.querySelector("#wordListsSelection").className = "show"
+
+    // clears selections from previous in case user changes category
+    document.querySelectorAll('#wordLists option').forEach(option => option.remove())
+
+    // pulls category ID From selection
+    let cat_id = e.target.options.selectedIndex 
+    let select = document.querySelector("#wordLists")
+
+    allWords = Word.all
+
+    // loops through all word lists to see if the category ID matches cat id selected - creates dropdown of matching word lists
+    for (let i=0; i < allWords.length; i++) {
+        if (parseInt(allWords[i].category.id) == cat_id) {
+            let opt = document.createElement("option")
+            opt.innerHTML = allWords[i].title
+            select.appendChild(opt)
+        }
+    }
+}
+
+// pushes all input words into word_list array for DB
 function getWords() {
     let words = document.querySelectorAll("#input-word")
     let wordsinput = []
+
     for (let i = 0; i < words.length; i++) {
         wordsinput.push(words[i].value) 
     }
     return wordsinput 
 } 
 
+// sends form data to DB
 function postFetch(title, word_list, category_id) {
     fetch(words_url, {
         method: "POST",
