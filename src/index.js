@@ -3,12 +3,32 @@ words_url = "http://localhost:3000/api/words"
 
 document.addEventListener('DOMContentLoaded', () => {
     const createWordListForm = document.querySelector("#create-word-list-form")
+    const ready = document.querySelector("#ready")
+    const newListButton = document.querySelector("#createList")
+    const catContainer = document.querySelector("#category-container")
+    const catDropDown = document.querySelector("#categories")
 
+    // gets info from backend db
+    getCategories()
+
+    // submits new word_list form to db
     createWordListForm.addEventListener('submit', function(e) {
         e.preventDefault();
         createFormHandler(e)
     })
-    getCategories()
+    
+    // displays create new wordlist form
+    newListButton.addEventListener("click", () => {
+        catContainer.className = "show"
+    })
+
+    // pulls category id/name & displays associated lists
+    catDropDown.addEventListener("change", (e) => {
+        console.log(e)
+        // here we will display list of word_list titles depending on the category chosen
+        // pull from db? or have each .hidden?
+    })
+    
 })
 
 function getCategories() {

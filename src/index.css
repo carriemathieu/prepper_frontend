@@ -1,0 +1,129 @@
+html {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/nyc.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    backdrop-filter: blur(5px);
+}
+
+/* header on page */
+h1 {
+    color: white;
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+}
+
+h4 {
+    color: white;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+}
+
+body {
+    /* italics:  */
+    font-family: 'Cormorant Garamond', serif;
+}
+
+/* all buttons/ready button/create button */
+button {
+    font-family: 'Cormorant Garamond', serif;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#ready {
+    background:rgba(102, 204, 153, .5);
+}
+
+#create-button {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+/* containers for info and forms */
+.blur-box {
+    border-radius: 15px;
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+    left: 11.6%;
+    font-size: 1rem;
+    overflow: hidden;
+    position: relative;
+    width: 75%;
+    margin: 15px;
+}
+
+.blur-box:before {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px) saturate(100%) contrast(45%) brightness(130%);
+    content: '';
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+
+/* info & categories container */
+#instr_select_cat {
+    color: black;
+    margin-top: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+/* displays form */
+#category-container {
+    color: black;
+    margin-top: 30px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    clear: both;
+}
+
+/* formatting for create word list form */
+.grid {
+    display: grid;
+    grid-template-areas: "left center-left center-right right";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: .5rem;
+}
+
+.column1 {
+    grid-area: center-left;
+}
+
+.column2 {
+    grid-area: center-right;
+}
+
+#input-title {
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    width: 40%;
+}
+
+#input-word {
+    font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    width: 80%;
+    margin-bottom: .5em;
+}
+
+#formCategories {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+#categories {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+/* to hide elements on page */
+.hidden {
+    display: none;
+}
