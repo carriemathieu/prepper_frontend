@@ -4,11 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="src/index.css">
     <script type="text/javascript" src="src/word.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
     <title>Document</title>
 </head>
 <body>
+    <h1>prepper</h1>
+    <h4>prepare for your next opportunity</h4>
+    <main>
+    <div id="instr_select_cat">
+        <div id= "instructions">
+            Instructions: Choose a category, then a word list within that category. The list you select will consist of 10 words. You will have 30 seconds to say as many words as you can related to the category and list title as you can. For each word you say that is included in the list, you recieve one point. Maximum number of points is 10. Whenever you’re ready, click “I’m ready” and start speaking.
+        </div>
+        <select id="categories" name="categories">
+            <option value="" disabled selected>Please Select a Category</option>
+            <option value="1">Ruby</option>
+            <option value="2">Rails</option>
+            <option value="3">Javascript</option>
+        </select>
+        <button>I'm Ready!</button>
+    </div>
+
     <div id="category-container">
         <form id="create-word-list-form">
             <h3> Create a Word List! </h3>
@@ -25,7 +43,7 @@
             <input id="input-word" type="text" name="word[9]" value="" placeholder="Word 10">
             <br><br>
         
-            <select id="categories" name="categories">
+            <select id="form_categories" name="categories">
                 <option value="" disabled selected>Please Select a Category</option>
                 <option value="1">Ruby</option>
                 <option value="2">Rails</option>
@@ -39,5 +57,6 @@
     <div id="words-container">
 
     </div>
+    </main> 
 </body>
 </html>
