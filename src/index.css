@@ -67,12 +67,32 @@ body {
     clear: both;
 }
 
+.grid {
+    display: grid;
+    grid-template-areas: "left center-left center-right right";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: .5rem;
+}
+
+.column1 {
+    grid-area: center-left;
+}
+
+.column2 {
+    grid-area: center-right;
+}
+
 #input-title {
     font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    width: 40%;
 }
 
 #input-word {
     font-family: 'Cormorant Garamond', serif;
+    text-align: center;
+    width: 60%;
+    margin-bottom: .5em;
 }
 
 #categories{
@@ -93,6 +113,6 @@ button {
     font-family: 'Cormorant Garamond', serif;
 }
 
-.hidden {
+/* .hidden {
     display: none;
-}
+} */
