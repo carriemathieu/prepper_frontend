@@ -5,58 +5,74 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Dancing+Script&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="src/index.css">
     <script type="text/javascript" src="src/word.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <h1>prepper</h1>
-    <h4>prepare for your next opportunity</h4>
-    <main>
-    <div id="instr_select_cat">
-        <div id= "instructions">
-            Instructions: Choose a category, then a word list within that category. The list you select will consist of 10 words. You will have 30 seconds to say as many words as you can related to the category and list title as you can. For each word you say that is included in the list, you recieve one point. Maximum number of points is 10. Whenever you’re ready, click “I’m ready” and start speaking.
-        </div>
-        <select id="categories" name="categories">
-            <option value="" disabled selected>Please Select a Category</option>
-            <option value="1">Ruby</option>
-            <option value="2">Rails</option>
-            <option value="3">Javascript</option>
-        </select>
-        <button>I'm Ready!</button>
-    </div>
+    <div class="grid-container">
+        <h1>prepper</h1>
+        <h4>prepare for your next opportunity</h4>
+        <main>
+            <div class="blur-box">
+                <div id="instr_select_cat">
+                    <p id= "instructions">
+                        Instructions: Choose a category, then a word list within that category. The list you select will consist of 10 words. You will have 30 seconds to say as many words as you can related to the category and list title as you can. For each word you say that is included in the list, you recieve one point. Maximum number of points is 10. Whenever you’re ready, click “I’m ready” and start speaking.
+                    </p>
+                    
+                    <select id="categories" name="categories">
+                        <option value="" disabled selected>Please Select a Category</option>
+                        <option value="1">Ruby</option>
+                        <option value="2">Rails</option>
+                        <option value="3">Javascript</option>
+                    </select>
+                    <br>
+                    [choose word list here]
+                    <br><br>
+                    <button id="ready">I'm Ready!</button>
+                    <br>
+                    or
+                    <br>
+                    <button id="createList">Create a New List</button>
+                </div>
+            </div>
 
-    <div id="category-container">
-        <form id="create-word-list-form">
-            <h3> Create a Word List! </h3>
-            <input id="input-title" type="text" name="title" value="" placeholder="List Title">
-            <input id="input-word" type="text" name="word[0]" value="" placeholder="Word 1">
-            <input id="input-word" type="text" name="word[1]" value="" placeholder="Word 2">
-            <input id="input-word" type="text" name="word[2]" value="" placeholder="Word 3">
-            <input id="input-word" type="text" name="word[3]" value="" placeholder="Word 4">
-            <input id="input-word" type="text" name="word[4]" value="" placeholder="Word 5">
-            <input id="input-word" type="text" name="word[5]" value="" placeholder="Word 6">
-            <input id="input-word" type="text" name="word[6]" value="" placeholder="Word 7">
-            <input id="input-word" type="text" name="word[7]" value="" placeholder="Word 8">
-            <input id="input-word" type="text" name="word[8]" value="" placeholder="Word 9">
-            <input id="input-word" type="text" name="word[9]" value="" placeholder="Word 10">
-            <br><br>
-        
-            <select id="form_categories" name="categories">
-                <option value="" disabled selected>Please Select a Category</option>
-                <option value="1">Ruby</option>
-                <option value="2">Rails</option>
-                <option value="3">Javascript</option>
-            </select>
-            <br><br>
-        <input id='create-button' type="submit" name="submit" value="Create List" class="submit">
-        </form>
+            <div class="blur-box">
+                <div id="category-container" class="hidden">
+                    <form id="create-word-list-form">
+                        <h3> Create a Word List! </h3>
+                        <input id="input-title" type="text" name="title" value="" placeholder="List Title">
+                        <input id="input-word" type="text" name="word[0]" value="" placeholder="Word 1">
+                        <input id="input-word" type="text" name="word[1]" value="" placeholder="Word 2">
+                        <input id="input-word" type="text" name="word[2]" value="" placeholder="Word 3">
+                        <input id="input-word" type="text" name="word[3]" value="" placeholder="Word 4">
+                        <input id="input-word" type="text" name="word[4]" value="" placeholder="Word 5">
+                        <input id="input-word" type="text" name="word[5]" value="" placeholder="Word 6">
+                        <input id="input-word" type="text" name="word[6]" value="" placeholder="Word 7">
+                        <input id="input-word" type="text" name="word[7]" value="" placeholder="Word 8">
+                        <input id="input-word" type="text" name="word[8]" value="" placeholder="Word 9">
+                        <input id="input-word" type="text" name="word[9]" value="" placeholder="Word 10">
+                        <br><br>
+                    
+                        <select id="categories" name="categories">
+                            <option value="" disabled selected>Please Select a Category</option>
+                            <option value="1">Ruby</option>
+                            <option value="2">Rails</option>
+                            <option value="3">Javascript</option>
+                        </select>
+                        <br><br>
+                    <input id='create-button' type="submit" name="submit" value="Create List" class="submit">
+                    </form>
+                </div>
+            </div>
+            <div id="words-container" class="hidden">
 
-    </div>
-    <div id="words-container">
-
-    </div>
-    </main> 
+            </div>
+        </main> 
+</div>
 </body>
 </html>

@@ -3,12 +3,20 @@ words_url = "http://localhost:3000/api/words"
 
 document.addEventListener('DOMContentLoaded', () => {
     const createWordListForm = document.querySelector("#create-word-list-form")
+    const ready = document.querySelector("#ready")
+    const newListButton = document.querySelector("#createList")
+    const catContainer = document.querySelector("#category-container")
+
+    getCategories()
 
     createWordListForm.addEventListener('submit', function(e) {
         e.preventDefault();
         createFormHandler(e)
     })
-    getCategories()
+    
+    newListButton.addEventListener("click", () => {
+        catContainer.className = "show"
+    })
 })
 
 function getCategories() {
