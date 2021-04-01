@@ -7,6 +7,7 @@ html {
     backdrop-filter: blur(5px);
 }
 
+/* header on page */
 h1 {
     color: white;
     text-align: center;
@@ -24,10 +25,26 @@ body {
     font-family: 'Cormorant Garamond', serif;
 }
 
+/* all buttons/ready button/create button */
+button {
+    font-family: 'Cormorant Garamond', serif;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#ready {
+    background:rgba(102, 204, 153, .5);
+}
+
+#create-button {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+/* containers for info and forms */
 .blur-box {
     border-radius: 15px;
     box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-    left: 9.9%;
+    left: 11.6%;
     font-size: 1rem;
     overflow: hidden;
     position: relative;
@@ -44,6 +61,7 @@ body {
     width: 100%;
 }
 
+/* info & categories container */
 #instr_select_cat {
     color: black;
     margin-top: 30px;
@@ -55,6 +73,7 @@ body {
     text-align: center;
 }
 
+/* displays form */
 #category-container {
     color: black;
     margin-top: 30px;
@@ -67,6 +86,7 @@ body {
     clear: both;
 }
 
+/* formatting for create word list form */
 .grid {
     display: grid;
     grid-template-areas: "left center-left center-right right";
@@ -91,28 +111,19 @@ body {
 #input-word {
     font-family: 'Cormorant Garamond', serif;
     text-align: center;
-    width: 60%;
+    width: 80%;
     margin-bottom: .5em;
 }
 
-#categories{
+#formCategories {
     font-family: 'Cormorant Garamond', serif;
 }
 
-button {
-    font-family: 'Cormorant Garamond', serif;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-#ready {
-    background:rgba(102, 204, 153, .5);
-}
-
-#create-button {
+#categories {
     font-family: 'Cormorant Garamond', serif;
 }
 
-/* .hidden {
+/* to hide elements on page */
+.hidden {
     display: none;
-} */
+}

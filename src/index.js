@@ -6,17 +6,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const ready = document.querySelector("#ready")
     const newListButton = document.querySelector("#createList")
     const catContainer = document.querySelector("#category-container")
+    const catDropDown = document.querySelector("categories")
 
+    // gets info from backend db
     getCategories()
 
+    // submits new word_list form to db
     createWordListForm.addEventListener('submit', function(e) {
         e.preventDefault();
         createFormHandler(e)
     })
     
+    // displays create new wordlist form
     newListButton.addEventListener("click", () => {
         catContainer.className = "show"
     })
+
+    // pulls category id/name & displays associated lists
+    
 })
 
 function getCategories() {
