@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector("#instr_select_cat").className="hidden"
         document.querySelector("#results").className = "show"
         display = document.querySelector("#timer-container");
-        startTimer(30, display)
         startSpeechRecognition(chosenList)
     })
 })
@@ -121,7 +120,7 @@ function postFetch(title, word_list, category_id) {
     })
 }
 
-function startTimer(duration, display) {
+function startTimer(duration, display, stopSpeech) {
     var timer = duration, minutes, seconds;
     setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -134,35 +133,50 @@ function startTimer(duration, display) {
 
         if (--timer < 0) {
             document.querySelector("#timer-container").className = "hidden";
-            displayResults()
+            stopSpeech()
         }
     }, 1000);
 }
 
-function displayResults(chosenList, points) {
-    "yay!"
+function displayResults(chosenList, finalTranscript) {
+    let missedWords = []
+    let points = 0
+    let listOfWords = Word.all.find(x => x.id == chosenList) // gets words from chosen list dropdown
+    let transcriptArray = finalTranscript.split(" ") // changes transcript to array
+    let span = document.querySelector("#final_span")
+
+    console.log(transcriptArray)
+    
+    for (let i=0; i < transcript.length; i++) {
+         if (!listOfWords.includes(transcript[i])) {
+            missedWords.push(transcript[i])
+         } 
+        return [missedWords]
+    }
+    span.innerText = `You scored ${points} points!`
 }
 
 function startSpeechRecognition(chosenList) {
-    points = 0
+    const stopSpeech = () => recognition.stop()
+    startTimer(10, display, stopSpeech)
+
     // browser compatibility
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    let finalTranscript = '';
 
     // creating new SpeechRecognition
     const recognition = new SpeechRecognition()
-    // get results as speaker is talking
-    recognition.interimResults = true
+    recognition.continuous = true
 
-    recognition.addEventListener('result', e => {
-        const transcript = Array.from(e.results)
-            .map(result => result[0])
-            .map(result => result.transcript)
-    })
-    
-    // if person stops speaking, listen when speaking again
-    recognition.addEventListener('end', recognition.start)
-
+    // appends words together
+    recognition.onresult = function(event) {
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } 
+        }
+        displayResults(chosenList, finalTranscript)
+      }
     recognition.start()
-
-    displayResults(chosenList, points)
 }
+
