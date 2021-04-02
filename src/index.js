@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const catContainer = document.querySelector("#category-container")
     const catDropDown = document.querySelector("#categories")
     const wordListDropDown = document.querySelector("#wordLists")
+    const homeBtn = document.querySelector("#refresh")
 
     // gets info from backend db
     getCategories()
@@ -35,6 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
         display = document.querySelector("#timer-container");
         startSpeechRecognition(chosenList)
     })
+
+    homeBtn.addEventListener("click", () => {
+        window.location.reload()
+    })
+
 })
 
 function getCategories() {
@@ -138,27 +144,9 @@ function startTimer(duration, display, stopSpeech) {
     }, 1000);
 }
 
-function displayResults(chosenList, finalTranscript) {
-    let missedWords = []
-    let points = 0
-    let listOfWords = Word.all.find(x => x.id == chosenList) // gets words from chosen list dropdown
-    let transcriptArray = finalTranscript.split(" ") // changes transcript to array
-    let span = document.querySelector("#final_span")
-
-    console.log(transcriptArray)
-    
-    for (let i=0; i < transcript.length; i++) {
-         if (!listOfWords.includes(transcript[i])) {
-            missedWords.push(transcript[i])
-         } 
-        return [missedWords]
-    }
-    span.innerText = `You scored ${points} points!`
-}
-
 function startSpeechRecognition(chosenList) {
     const stopSpeech = () => recognition.stop()
-    startTimer(10, display, stopSpeech)
+    startTimer(5, display, stopSpeech)
 
     // browser compatibility
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -175,8 +163,37 @@ function startSpeechRecognition(chosenList) {
             finalTranscript += event.results[i][0].transcript;
           } 
         }
-        displayResults(chosenList, finalTranscript)
       }
+
+    recognition.onend = function() {
+        window.alert("Time's up!")
+        displayResults(chosenList, finalTranscript)
+    }
+
     recognition.start()
 }
+
+function displayResults(chosenList, finalTranscript) {
+    let missedWords = []
+    let points = 0
+    let list = Word.all.find(x => x.id == chosenList) // list object
+    let listOfWords = list.word_list
+    let lowercaseTranscript = finalTranscript.toLowerCase()
+    let transcriptArray = lowercaseTranscript.split(" ") // changes transcript to array
+    let resText = document.querySelector("#resultsText")
+    document.querySelector("#post-speaking-btns").className = "show"
+    
+    for (let i=0; i < transcriptArray.length; i++) {
+        if (transcriptArray.includes(listOfWords[i])) {
+            console.log("listOfWords[i]:", listOfWords[i])
+            points++
+        } else {
+            missedWords.push(listOfWords[i])
+        }
+    }
+    
+    resText.innerText = `You scored ${points} points! Try saying these words next time: ${missedWords.join(" ")}`
+}
+
+
 
