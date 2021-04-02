@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     ready.addEventListener("click", () => {
-        chosenList = wordListDropDown.value
+        chosenList = parseInt(wordListDropDown.value)
         document.querySelector("#instr_select_cat").className="hidden"
         document.querySelector("#results").className = "show"
         display = document.querySelector("#timer-container");
@@ -79,7 +79,8 @@ function getWordListTitles(e) {
     for (let i=0; i < allWords.length; i++) {
         if (parseInt(allWords[i].category.id) == cat_id) {
             let opt = document.createElement("option")
-            opt.innerHTML = allWords[i].title
+            opt.value = parseInt(allWords[i].id)
+            opt.innerText = allWords[i].title
             select.appendChild(opt)
         }
     }
@@ -138,13 +139,12 @@ function startTimer(duration, display) {
     }, 1000);
 }
 
-function displayResults() {
+function displayResults(chosenList, points) {
     "yay!"
 }
 
 function startSpeechRecognition(chosenList) {
     points = 0
-    debugger
     // browser compatibility
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
 
@@ -153,9 +153,16 @@ function startSpeechRecognition(chosenList) {
     // get results as speaker is talking
     recognition.interimResults = true
 
-    recognition.addEventListener('result', e => console.log(e))
+    recognition.addEventListener('result', e => {
+        const transcript = Array.from(e.results)
+            .map(result => result[0])
+            .map(result => result.transcript)
+    })
+    
+    // if person stops speaking, listen when speaking again
+    recognition.addEventListener('end', recognition.start)
 
     recognition.start()
 
-    displayResults(chosenList)
+    displayResults(chosenList, points)
 }
