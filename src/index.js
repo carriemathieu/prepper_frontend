@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const catContainer = document.querySelector("#category-container")
     const catDropDown = document.querySelector("#categories")
     const wordListDropDown = document.querySelector("#wordLists")
+    const homeBtn = document.querySelector("#refresh")
 
     // gets info from backend db
     getCategories()
@@ -28,10 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
         getWordListTitles(e)
     })
 
-    ready.addEventListener("click", (e) => {
-        chosenList = wordListDropDown.value
-        
+    ready.addEventListener("click", () => {
+        chosenList = parseInt(wordListDropDown.value)
+        document.querySelector("#instr_select_cat").className="hidden"
+        document.querySelector("#results").className = "show"
+        display = document.querySelector("#timer-container");
+        startSpeechRecognition(chosenList)
     })
+
+    homeBtn.addEventListener("click", () => {
+        window.location.reload()
+    })
+
 })
 
 function getCategories() {
@@ -75,7 +84,8 @@ function getWordListTitles(e) {
     for (let i=0; i < allWords.length; i++) {
         if (parseInt(allWords[i].category.id) == cat_id) {
             let opt = document.createElement("option")
-            opt.innerHTML = allWords[i].title
+            opt.value = parseInt(allWords[i].id)
+            opt.innerText = allWords[i].title
             select.appendChild(opt)
         }
     }
@@ -115,3 +125,75 @@ function postFetch(title, word_list, category_id) {
         window.location.reload()
     })
 }
+
+function startTimer(duration, display, stopSpeech) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            document.querySelector("#timer-container").className = "hidden";
+            stopSpeech()
+        }
+    }, 1000);
+}
+
+function startSpeechRecognition(chosenList) {
+    const stopSpeech = () => recognition.stop()
+    startTimer(5, display, stopSpeech)
+
+    // browser compatibility
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    let finalTranscript = '';
+
+    // creating new SpeechRecognition
+    const recognition = new SpeechRecognition()
+    recognition.continuous = true
+
+    // appends words together
+    recognition.onresult = function(event) {
+        for (var i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } 
+        }
+      }
+
+    recognition.onend = function() {
+        window.alert("Time's up!")
+        displayResults(chosenList, finalTranscript)
+    }
+
+    recognition.start()
+}
+
+function displayResults(chosenList, finalTranscript) {
+    let missedWords = []
+    let points = 0
+    let list = Word.all.find(x => x.id == chosenList) // list object
+    let listOfWords = list.word_list
+    let lowercaseTranscript = finalTranscript.toLowerCase()
+    let transcriptArray = lowercaseTranscript.split(" ") // changes transcript to array
+    let resText = document.querySelector("#resultsText")
+    document.querySelector("#post-speaking-btns").className = "show"
+    
+    for (let i=0; i < transcriptArray.length; i++) {
+        if (transcriptArray.includes(listOfWords[i])) {
+            console.log("listOfWords[i]:", listOfWords[i])
+            points++
+        } else {
+            missedWords.push(listOfWords[i])
+        }
+    }
+    
+    resText.innerText = `You scored ${points} points! Try saying these words next time: ${missedWords.join(" ")}`
+}
+
+
+

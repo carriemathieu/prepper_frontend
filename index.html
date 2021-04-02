@@ -14,6 +14,7 @@
     <title>Document</title>
 </head>
 <body>
+    <div id= "navbar"></div>
     <div class="grid-container">
         <h1>prepper</h1>
         <h4>prepare for your next opportunity</h4>
@@ -23,18 +24,19 @@
                     <p id= "instructions">
                         Instructions: Choose a category, then a word list within that category. The list you select will consist of 10 words. You will have 30 seconds to say as many words as you can related to the category and list title as you can. For each word you say that is included in the list, you recieve one point. Maximum number of points is 10. Whenever you’re ready, click “I’m ready” and start speaking.
                     </p>
-                    
+                   
                     <div id="catSelections">
-                        Please select a category:
-                        <select id="categories" name="categories">
+                        Please select a category:<br>
+                        <select id="categories" name="categories" >
                             <option value="" disabled selected>Select a Category</option>
                             <option value="1">Ruby</option>
                             <option value="2">Rails</option>
                             <option value="3">Javascript</option>
                         </select> <br>
-                        <div id = "wordListsSelection" class="hidden">
+                        <div id = "wordListsSelection" class="hidden" required>
                             Please select a word list:<br>
-                            <select id="wordLists" name="wordLists">    
+                            <select id="wordLists" name="wordLists"
+                            value="" required>    
                             </select>
                         </div>
                     </div>
@@ -83,6 +85,24 @@
             </div>
             <div id="words-container" class="hidden" >
 
+            </div>
+
+            <div class="blur-box">
+                <div id="results" class="hidden">
+                    Start speaking!
+                    <div id="timer-container"> </div>
+                    <br><br>
+                    <div id="final_span" class="final">
+                        <div id="resultsText"></div>
+                        <div id="post-speaking-btns" class="hidden">
+                             <button ic="ready">Try Again?</button>
+                             <br> or <br>
+                             <button id="createList">Create a New List</button>
+                             <br> or <br> 
+                             <button id="refresh">Home</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </main> 
 </div>
