@@ -147,7 +147,7 @@ function startTimer(duration, display, stopSpeech) {
 
 function startSpeechRecognition(chosenList) {
     const stopSpeech = () => recognition.stop()
-    startTimer(5, display, stopSpeech)
+    startTimer(10, display, stopSpeech)
 
     // browser compatibility
     window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -186,7 +186,6 @@ function displayResults(chosenList, finalTranscript) {
     
     for (let i=0; i < transcriptArray.length; i++) {
         if (transcriptArray.includes(listOfWords[i])) {
-            console.log("listOfWords[i]:", listOfWords[i])
             points++
         } else {
             missedWords.push(listOfWords[i])
