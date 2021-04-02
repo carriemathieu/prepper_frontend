@@ -28,9 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
         getWordListTitles(e)
     })
 
-    ready.addEventListener("click", (e) => {
+    ready.addEventListener("click", () => {
         chosenList = wordListDropDown.value
-        
+        document.querySelector("#instr_select_cat").className="hidden"
+        document.querySelector("#results").className = "show"
+        display = document.querySelector("#timer-container");
+        startTimer(30, display)
+        startSpeechRecognition(chosenList)
     })
 })
 
@@ -114,4 +118,44 @@ function postFetch(title, word_list, category_id) {
 
         window.location.reload()
     })
+}
+
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            document.querySelector("#timer-container").className = "hidden";
+            displayResults()
+        }
+    }, 1000);
+}
+
+function displayResults() {
+    "yay!"
+}
+
+function startSpeechRecognition(chosenList) {
+    points = 0
+    debugger
+    // browser compatibility
+    window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+    // creating new SpeechRecognition
+    const recognition = new SpeechRecognition()
+    // get results as speaker is talking
+    recognition.interimResults = true
+
+    recognition.addEventListener('result', e => console.log(e))
+
+    recognition.start()
+
+    displayResults(chosenList)
 }
