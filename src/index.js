@@ -23,12 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     newListButton.addEventListener("click", () => {
         catContainer.className = "show"
     })
-
+    
     // pulls category id/name & displays associated lists
     catDropDown.addEventListener("change", (e) => {
         getWordListTitles(e)
     })
 
+    // adds event listener for both "ready" buttons
     ready.addEventListener("click", () => {
         chosenList = parseInt(wordListDropDown.value)
         document.querySelector("#instr_select_cat").className="hidden"
