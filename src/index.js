@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const homeBtn = document.querySelector("#refresh")
     const seeAllLists = document.querySelector("#renderWordLists")
     const wordContainer = document.querySelector("#words-container")
-    const edit = document.querySelector("#edit")
 
     // gets info from backend db
+    getWordLists()
     getCategories()
-
+    
     // button to show all word list cards
     seeAllLists.addEventListener('click', () => {
         wordContainer.className = "show"
@@ -52,17 +52,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-function getCategories() {
+function getWordLists() {
     fetch(words_url)
     .then(resp => resp.json())
     .then(words => {
-        // let select = document.querySelector("#categories")
         words.data.forEach( word => {
             let newWord = new Word(word, word.attributes)
-            // let opt = document.createElement("option")
-            // opt.innerHTML = newWord.renderCategories()
-            // select.appendChild(opt)
             document.querySelector('#words-container').insertAdjacentHTML("beforeend", newWord.renderWordCard())
+        })
+    })
+    .catch(err => alert(err))
+}
+
+function getCategories() {
+    let select = document.querySelector("#categories")
+    fetch(categories_url)
+    .then(resp => resp.json())
+    .then(categories => { 
+        categories.data.forEach( category => {
+            // let newCategory = new Category (category, category.attributes)
+            let opt = document.createElement("option")
+            opt.innerText = category.attributes.name
+            select.appendChild(opt)
         })
     })
     .catch(err => alert(err))

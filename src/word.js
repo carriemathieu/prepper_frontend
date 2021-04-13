@@ -7,18 +7,11 @@ class Word {
         Word.all.push(this)
     }
 
-    // renderCategories() {
-    //     return `
-    //      ${this.category.name}`
-    // }
-
     renderWordCard(){ 
         return `
             <div data-id=${this.id} class="wordListCard">
                 <h3> Word List Title: ${this.title} </h3>
                 <p> Category: ${this.category.name} </p>
-                ${this.word_list}
-                <button id="edit">Edit</button>
             </div>
             <br><br>` 
     }
