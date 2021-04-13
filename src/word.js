@@ -7,16 +7,17 @@ class Word {
         Word.all.push(this)
     }
 
-    renderCategories() {
-        return `
-         ${this.category.name}`
-    }
+    // renderCategories() {
+    //     return `
+    //      ${this.category.name}`
+    // }
 
     renderWordCard(){ 
     return `
     <div data-id=${this.id}>
         <h3> ${this.title} </h3>
         <p> ${this.category.name} </p>
+        <img src="./images/speech-bubble.png" alt="speech bubble">
     </div>
     <br><br>` }
 }

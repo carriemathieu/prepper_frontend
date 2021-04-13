@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const catDropDown = document.querySelector("#categories")
     const wordListDropDown = document.querySelector("#wordLists")
     const homeBtn = document.querySelector("#refresh")
+    const seeAllLists = document.querySelector("#")
 
     // gets info from backend db
     getCategories()
@@ -57,7 +58,7 @@ function getCategories() {
             document.querySelector('#words-container').insertAdjacentHTML("beforeend", newWord.renderWordCard())
         })
     })
-    // .catch(err => console.log(err))
+    .catch(err => alert(err))
 }
 
 function createFormHandler(e) {
@@ -125,6 +126,7 @@ function postFetch(title, word_list, category_id) {
 
         window.location.reload()
     })
+    .catch(err => alert(err))
 }
 
 function startTimer(duration, display, stopSpeech) {
