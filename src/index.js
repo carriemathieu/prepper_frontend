@@ -9,9 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const catDropDown = document.querySelector("#categories")
     const wordListDropDown = document.querySelector("#wordLists")
     const homeBtn = document.querySelector("#refresh")
+    const seeAllLists = document.querySelector("#renderWordLists")
+    const wordContainer = document.querySelector("#words-container")
+    const edit = document.querySelector("#edit")
 
     // gets info from backend db
     getCategories()
+
+    // button to show all word list cards
+    seeAllLists.addEventListener('click', () => {
+        wordContainer.className = "show"
+    })  
 
     // submits new word_list form to db
     createWordListForm.addEventListener('submit', function(e) {
@@ -57,7 +65,7 @@ function getCategories() {
             document.querySelector('#words-container').insertAdjacentHTML("beforeend", newWord.renderWordCard())
         })
     })
-    // .catch(err => console.log(err))
+    .catch(err => alert(err))
 }
 
 function createFormHandler(e) {
@@ -125,6 +133,7 @@ function postFetch(title, word_list, category_id) {
 
         window.location.reload()
     })
+    .catch(err => alert(err))
 }
 
 function startTimer(duration, display, stopSpeech) {
