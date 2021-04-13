@@ -13,13 +13,15 @@ class Word {
     // }
 
     renderWordCard(){ 
-    return `
-    <div data-id=${this.id}>
-        <h3> ${this.title} </h3>
-        <p> ${this.category.name} </p>
-        <img src="./images/speech-bubble.png" alt="speech bubble">
-    </div>
-    <br><br>` }
+        return `
+            <div data-id=${this.id} class="wordListCard">
+                <h3> Word List Title: ${this.title} </h3>
+                <p> Category: ${this.category.name} </p>
+                ${this.word_list}
+                <button id="edit">Edit</button>
+            </div>
+            <br><br>` 
+    }
 }
 
 Word.all = []

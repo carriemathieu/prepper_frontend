@@ -9,10 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const catDropDown = document.querySelector("#categories")
     const wordListDropDown = document.querySelector("#wordLists")
     const homeBtn = document.querySelector("#refresh")
-    const seeAllLists = document.querySelector("#")
+    const seeAllLists = document.querySelector("#renderWordLists")
+    const wordContainer = document.querySelector("#words-container")
+    const edit = document.querySelector("#edit")
 
     // gets info from backend db
     getCategories()
+
+    // button to show all word list cards
+    seeAllLists.addEventListener('click', () => {
+        wordContainer.className = "show"
+    })  
 
     // submits new word_list form to db
     createWordListForm.addEventListener('submit', function(e) {
