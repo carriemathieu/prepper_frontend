@@ -6,35 +6,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const ready = document.querySelector("#ready")
     const newListButton = document.querySelector("#createList")
     const catContainer = document.querySelector("#category-container")
-    const catDropDown = document.querySelector("#categories")
     const wordListDropDown = document.querySelector("#wordLists")
     const homeBtn = document.querySelector("#refresh")
     const seeAllLists = document.querySelector("#renderWordLists")
     const wordContainer = document.querySelector("#words-container")
-    const edit = document.querySelector("#edit")
-
+    
     // gets info from backend db
-    getCategories()
+    getWords()
+   
 
     // button to show all word list cards
     seeAllLists.addEventListener('click', () => {
         wordContainer.className = "show"
+        const editBtn = document.querySelectorAll("#edit")
+        editBtn.forEach(index => {
+            index.addEventListener("click", (e) => {console.log(e)})
+        })
     })  
 
     // submits new word_list form to db
     createWordListForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        createFormHandler(e)
+        let formType="create"
+        formHandler(e, formType)
     })
     
     // displays create new wordlist form
     newListButton.addEventListener("click", () => {
         catContainer.className = "show"
-    })
-    
-    // pulls category id/name & displays associated lists
-    catDropDown.addEventListener("change", (e) => {
-        getWordListTitles(e)
     })
 
     // adds event listener for both "ready" buttons
@@ -52,23 +51,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-function getCategories() {
+function getWords() {
+    console.log("getWords")
     fetch(words_url)
     .then(resp => resp.json())
     .then(words => {
-        // let select = document.querySelector("#categories")
         words.data.forEach( word => {
             let newWord = new Word(word, word.attributes)
-            // let opt = document.createElement("option")
-            // opt.innerHTML = newWord.renderCategories()
-            // select.appendChild(opt)
             document.querySelector('#words-container').insertAdjacentHTML("beforeend", newWord.renderWordCard())
         })
     })
-    .catch(err => alert(err))
+    .catch(err => console.log(err))
 }
 
-function createFormHandler(e) {
+function getCategories() {
+    console.log("getcategories")
+    let catDropDown = document.querySelector("#categories")
+
+    fetch(categories_url)
+    .then(resp => resp.json())
+    .then(categories => {
+        categories.data.forEach( category => {
+            // let categoryOption = new Category(category, category.attributes)
+            let opt = document.createElement("option")
+            // opt.innerText = categoryOption.renderCategories()
+            opt.innerText = category.attributes.name
+            catDropDown.appendChild(opt)
+        })
+    })
+    .catch(err => console.log(err))
+
+    // pulls category id/name & displays associated lists
+    catDropDown.addEventListener("change", (e) => {
+        getWordListTitles(e)
+    })
+
+    getCategories()
+}
+
+function formHandler(e) {
     e.preventDefault()
     const titleInput = document.querySelector("#input-title").value
     const wordListInput = getWords()
@@ -84,7 +105,7 @@ function getWordListTitles(e) {
     document.querySelectorAll('#wordLists option').forEach(option => option.remove())
 
     // pulls category ID From selection
-    let cat_id = e.target.options.selectedIndex 
+    let cat_id = e.target.options.selectedIndex
     let select = document.querySelector("#wordLists")
 
     allWords = Word.all

@@ -1,10 +1,13 @@
 class Category {
-    constructor(name) {
+    constructor(category, name) {
+        this.id = category.id
         this.name = name
         Category.all.push(this)
     }
 
-    // to render category dropdown & dynamically add
+    renderCategories() {
+        return this.category.name
+    }
 
 }
 
